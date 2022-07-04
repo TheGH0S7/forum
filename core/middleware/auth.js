@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const secret = require('../env/userauth.json')
+const secret = require('../json/userauth.json')
 
 module.exports = (req, res, next) => {
     const authHeader = req.headers.authorization
@@ -22,6 +22,7 @@ module.exports = (req, res, next) => {
             return res.status(401).send({ message: 'invalid Token'})
         
         req.userId = decoded.id;
+        req.validToken = true
         return next();
     })
 }

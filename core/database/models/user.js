@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
-var autoIncrement = require('mongoose-auto-increment');
-
+const mongoose = require("../database");
+const autoIncrement = require('mongoose-auto-increment');
+const Bcrypt = require('bcryptjs')
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
@@ -11,12 +11,17 @@ const UserSchema = new Schema({
     },
     password: {
         type:String,
-        required: true
+        required: true,
+        select: false,
     },
     email: {
         type:String,
         required: true,
         unique: true
+    },
+    PasswordToken: {
+        type: String,
+        select: false
     },
     rank: {
         type: Number,
@@ -25,6 +30,13 @@ const UserSchema = new Schema({
     aboutme: String,    
     Createdata: {type: Date, default: Date.now }
     
+})
+
+UserSchema.pre('save', async function(next) {
+    const hash = await Bcrypt.hashSync(this.password, 10);
+    this.password = hash
+
+    next();
 })
 UserSchema.set('toJSON', {
     transform: (document, returnedObject) => {
