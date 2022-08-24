@@ -1,0 +1,2 @@
+## Galactical.club Forum project
+

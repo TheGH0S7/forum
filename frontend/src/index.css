@@ -1,0 +1,12 @@
+.background {
+  margin-top: -4%;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  position: absolute;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background: #232323;
+  border: 5px solid #4C175A;
+  filter: blur(3px);
+}

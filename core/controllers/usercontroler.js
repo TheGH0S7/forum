@@ -109,8 +109,8 @@ router.post('/changepassword', async (req, res) => {
 
         const user = await User.findOne({email}).select('+PasswordToken PasswordTExpires');
 
-        if(!user) 
-            return res.status(400).json({ 'message': 'invalid email '});
+        if(!user || !passwd ) 
+            return res.status(400).json({ 'message': 'invalid email or password '});
         if(token !== user.PasswordToken)
             return res.status(400).json({ 'message': 'invalid Token '});
         
